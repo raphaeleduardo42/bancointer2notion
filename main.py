@@ -168,12 +168,12 @@ def main(lancamentos_desde: datetime.date | None):
     print("🔗 Verificando relações com outras bases de dados do Notion...")
     for id, transacao in id_transacoes.items():
         if transacao.detalhes and transacao.detalhes.txId:
-            match = re.match(r"(OBRA|ELEVARE)(\d{4})", transacao.detalhes.txId)
+            match = re.match(r"(OBRA|ELEVARE)(\d{3,4})", transacao.detalhes.txId)
             if match:
                 type = match.group(1)
                 number = match.group(2)
                 relations[type].append(int(number))
-                transacao.identificador = transacao.detalhes.txId
+                transacao.identificador = match.group(0)
     
     relations_notion: dict[str, tuple[str, str]] = {}
     for type, values in relations.items():

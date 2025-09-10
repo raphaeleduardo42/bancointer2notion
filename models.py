@@ -52,7 +52,7 @@ class NotionProperties(BaseModel):
 
         titulo = [raw['titulo']]
         titulo.append(raw['descricao'])
-        titulo.append(raw['numeroDocumento'])
+        titulo.append(f"- {raw['numeroDocumento']}")
 
         detalhes = raw['detalhes']
         if detalhes and detalhes.get('descricaoPix'):
