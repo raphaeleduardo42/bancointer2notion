@@ -56,13 +56,31 @@ Este script automatiza a importação de transações da conta PJ do Banco Inter
 
 ## Como Usar
 
-Para executar o script, basta rodar o arquivo `main.py`.
+Existem duas maneiras de executar o script:
+
+### Método 1: Script Automatizado (Recomendado para Windows)
+
+Utilize o script `run.ps1` em um terminal PowerShell. Ele cuidará de criar o ambiente virtual e instalar as dependências automaticamente na primeira execução, simplificando todo o processo.
+
+```powershell
+.\run.ps1
+```
+
+> **Nota:** Caso encontre um erro sobre a execução de scripts ser desabilitada, execute o seguinte comando no PowerShell para permitir a execução na sessão atual e tente novamente:
+> `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process`
+
+### Método 2: Execução Manual
+
+Se você não estiver no Windows ou preferir executar os passos manualmente, siga as instruções da seção **Configuração** para criar o ambiente e instalar as dependências. Depois, com o ambiente virtual ativado, execute:
 
 ```bash
 python main.py
 ```
 
-Por padrão, o script buscará as transações a partir da data definida na variável `lancamentos_desde` no final do arquivo `main.py`. Você pode alterar essa data conforme necessário.
+### Configuração da Data de Início
+
+Por padrão, o script buscará as transações a partir da data definida na variável `lancamentos_desde` no final do arquivo `main.py`. Você pode alterar essa data conforme necessário para o período que deseja sincronizar.
+
 
 ## Como Funciona
 
