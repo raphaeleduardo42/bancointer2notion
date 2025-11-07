@@ -205,6 +205,9 @@ def main(lancamentos_desde: datetime.date | None):
 
 if __name__ == "__main__":
     #Define até quando deve buscar os lançamentos no banco, mas não antes de 2025-08-01 (critério pessoal)
-    lancamentos_desde = "2025-08-01"
+    lancamentos_desde = max(
+        datetime.date.fromisoformat("2025-08-01"),
+        datetime.date.today() - datetime.timedelta(days=89)
+    )
 
-    main(lancamentos_desde = datetime.date.fromisoformat(lancamentos_desde))
+    main(lancamentos_desde)
