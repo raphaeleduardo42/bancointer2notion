@@ -1,0 +1,12 @@
+[project]
+name = "bancointer2notion"
+version = "1.5.0"
+description = "Script de exportação de dados do Banco Inter para Notion"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "authlib>=1.6.6",
+    "notion-client>=2.7.0",
+    "pydantic>=2.12.5",
+    "python-dotenv>=1.2.1",
+]

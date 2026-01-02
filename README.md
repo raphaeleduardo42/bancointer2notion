@@ -1,6 +1,6 @@
 # Sincronizador de Extrato Banco Inter para Notion
 
-Este script automatiza a importação de transações da conta PJ do Banco Inter para uma base de dados no Notion. Ele busca novas transações, evita duplicatas e cria relações com outras bases de dados (como controle de obras ou contas a pagar/receber) com base em um identificador no `txId` do PIX.
+Este script automatiza a importação de transações da conta PJ do Banco Inter para uma base de dados no Notion de maneira assincrona. Ele busca novas transações, evita duplicatas e cria relações com outras bases de dados (como controle de obras ou contas a pagar/receber) com base em um identificador no `txId` do PIX.
 
 ## Funcionalidades
 
@@ -13,26 +13,35 @@ Este script automatiza a importação de transações da conta PJ do Banco Inter
 
 ## Pré-requisitos
 
-- Python 3.9+
+- Python 3.13+
 - Uma conta PJ no Banco Inter com acesso à API.
 - Um espaço de trabalho no Notion com as bases de dados configuradas.
 - Certificado e chave da API do Inter (arquivos `.crt` e `.key`).
-
+- Gerenciador de pacotes uv
+  
 ## Configuração
+
+0. **Instalação do Packet Manager `uv`:**
+
+    ```bash
+    # MacOS / Linux
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+
+    # Windows (PowerShell)
+    powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
+    ```
 
 1. **Clone o repositório:**
 
     ```bash
-    git clone <url-do-seu-repositorio>
-    cd <nome-do-repositorio>
+    git clone raphaeleduardo42/bancointer2notion
+    cd bancointer2notion
     ```
 
-2. **Crie um ambiente virtual e instale as dependências:**
+2. **Instale as dependências:**
 
     ```bash
-    python -m venv .venv
-    source .venv/bin/activate  # No Windows: .venv\Scripts\activate
-    pip install -r requirements.txt
+    uv sync
     ```
 
 3. **Configure as variáveis de ambiente:**
@@ -46,7 +55,7 @@ Este script automatiza a importação de transações da conta PJ do Banco Inter
 
         NOTION_TOKEN="seu-token-de-integracao-do-notion"
 
-        NOTION_DATABASE="id-da-sua-base-principal"
+        NOTION_DATA_SOURCE="id-da-sua-base-principal"
         CONTROLE_FINANCEIRO="id-da-base-de-obras"
         PAGAR_E_RECEBER="id-da-base-de-contas-a-pagar"
 
@@ -56,31 +65,15 @@ Este script automatiza a importação de transações da conta PJ do Banco Inter
 
 ## Como Usar
 
-Existem duas maneiras de executar o script:
-
-### Método 1: Script Automatizado (Recomendado para Windows)
-
-Utilize o script `run.ps1` em um terminal PowerShell. Ele cuidará de criar o ambiente virtual e instalar as dependências automaticamente na primeira execução, simplificando todo o processo.
-
-```powershell
-.\run.ps1
-```
-
-> **Nota:** Caso encontre um erro sobre a execução de scripts ser desabilitada, execute o seguinte comando no PowerShell para permitir a execução na sessão atual e tente novamente:
-> `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process`
-
-### Método 2: Execução Manual
-
-Se você não estiver no Windows ou preferir executar os passos manualmente, siga as instruções da seção **Configuração** para criar o ambiente e instalar as dependências. Depois, com o ambiente virtual ativado, execute:
+Execute usando o `uv`:
 
 ```bash
-python main.py
+uv run main.py
 ```
 
 ### Configuração da Data de Início
 
 Por padrão, o script buscará as transações a partir da data definida na variável `lancamentos_desde` no final do arquivo `main.py`. Você pode alterar essa data conforme necessário para o período que deseja sincronizar.
-
 
 ## Como Funciona
 

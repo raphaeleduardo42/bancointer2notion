@@ -1,5 +1,0 @@
-Authlib
-python-dotenv
-notion-client
-pydantic
-requests
